@@ -12,9 +12,9 @@ It pulls data from multiple open-source threat feeds, standardizes indicators li
 - Scalable architecture for adding new feeds
 
 ## 🍿 Feeds (Current and Planned)
-- [x] URLhaus
-- [ ] MalwareBazaar
-- [ ] AlienVault OTX
+- [ ] URLhaus
+- [ ] VirusTotal API
+- [ ] Postgres local
 
 ## 🛠 Tech Stack
 - Python 3.11+
@@ -29,6 +29,12 @@ blacklight/
 ├── query.py # Query/search CLI
 ├── requirements.txt
 └── README.md
+
+## ❔ So what's the plan?
+1. Parse JSON dump from URLhaus for URLs 
+2. Connect to VirusTotal API to pull in additional information
+3. Save data in Postgres
+4. Visualiation 😎
 
 ## 👓 Author
 Created By Winnie Mutunga
