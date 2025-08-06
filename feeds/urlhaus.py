@@ -1,31 +1,24 @@
-# Parsing URLhause JSON dump of malicious and active malware URLs
-
 import json
-import pandas as pd
-import pprint as pp
 
-def load_urlhaus_json(filepath):
-    with open(filepath, 'r') as f:
+def loadHausJSON(path):
+    with open(path, 'r') as f:
         data = json.load(f)
+    # pp.pprint(data)
     return data
 
-def parse_urlhaus_data(data):
-    payloads = data.get("urls", [])
+def parseHausData(data):
     parsed = []
-    for item in payloads:
-        parsed.append({
-            "url": item.get("url"),
-            "host": item.get("host"),
-            "date_added": item.get("date_added"),
-            "tags": item.get("tags", []),
-            "url_status": item.get("url_status"),
-            "threat": item.get("threat"),
-            "reporter": item.get("reporter")
-        })
+    for key, entries in data.items():
+        for item in entries:
+            parsed.append({
+                "id": key,  # keep track of the original key
+                "url": item.get("url"),
+                "url_status": item.get("url_status"),
+                "date_added": item.get("dateadded"),
+                "last_online": item.get("last_online"),
+                "tags": item.get("tags", []),
+                "threat": item.get("threat"),
+                "reporter": item.get("reporter"),
+                "urlhaus_link": item.get("urlhaus_link")
+            })
     return parsed
-from feeds.urlhaus import load_urlhaus_json, parse_urlhaus_data
-
-data = load_urlhaus_json("data/urlhaus.json")
-parsed_urls = parse_urlhaus_data(data)
-
-print(f"Parsed {len(parsed_urls)} URLs.")
