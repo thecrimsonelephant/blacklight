@@ -22,13 +22,17 @@ It pulls data from multiple open-source threat feeds, standardizes indicators li
 - Modular architecture for easy feed integration
 
 ## 📂 Project Structure
+```
 blacklight/
-├── feeds/ # Individual feed logic
-├── utils/ # Normalization and helpers
-├── ingest.py # Main ingest runner
-├── query.py # Query/search CLI
+├── feeds/           # Individual feed logic
+│   └── __init__.py
+├── utils/           # Normalization and helpers
+│   └── __init__.py
+├── ingest.py        # Main ingest runner
+├── query.py         # Query/search CLI
 ├── requirements.txt
 └── README.md
+```
 
 ## ❔ So what's the plan?
 1. Parse JSON dump from URLhaus for URLs 
