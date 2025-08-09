@@ -72,7 +72,7 @@ def parsing(mal_url_id):
         "x-apikey": apikey
     }
 
-    encodingURLIDs = get_url_id(mal_url_id) #mal_url_id = list
+    encodingURLIDs = getURLID(mal_url_id) #mal_url_id = list
 
     for encodingURLID in encodingURLIDs:
         # Get URL report (GET)
