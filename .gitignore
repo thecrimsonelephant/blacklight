@@ -3,3 +3,4 @@ data/*.json
 data/*.csv
 feeds/__pycache__
 .venv
+.env

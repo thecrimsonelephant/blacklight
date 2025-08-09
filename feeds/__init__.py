@@ -1,2 +1,3 @@
 from .urlhaus import loadHausJSON, parseHausData
-from feeds import loadHausJSON
+# from .virustotal import 
+# from feeds import loadHausJSON
