@@ -6,6 +6,7 @@ import pandas as pd
 import requests
 import base64
 import hashlib
+import datetime
 
 load_dotenv()
 apikey = os.getenv("APIKEY") # storing apikey
@@ -29,6 +30,8 @@ def parsing(encodingURLIDs):
 
     getURL = 'https://www.virustotal.com/api/v3/urls/' # setting up API URI to hit
     # attributes
+    first_submission_date_unix = []
+    last_analysis_date_unix = []
     first_submission_date = []
     last_analysis_date = []
     maliciousURL = []
@@ -66,8 +69,8 @@ def parsing(encodingURLIDs):
             # print(last_analysis_results)
             # not a nested list! So surfing the top with key/value and .items to get values
             for key, value in last_analysis_results.items():
-                first_submission_date.append(attributes['last_submission_date'])
-                last_analysis_date.append(attributes['last_analysis_date'])
+                first_submission_date_unix.append(attributes['last_submission_date'])
+                last_analysis_date_unix.append(attributes['last_analysis_date'])
                 maliciousURL.append(attributes['url'])
                 threat_names.append(attributes['threat_names'])
                 # print(f"Key: {key} --- Value: {value}") # checking for fun* (*ahem, sanity. #4) 
