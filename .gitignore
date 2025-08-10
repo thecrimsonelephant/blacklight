@@ -1,6 +1,8 @@
 # Ignore raw data files
 data/*.json
 data/*.csv
+testing
 feeds/__pycache__
 .venv
 .env
+postgresload.py

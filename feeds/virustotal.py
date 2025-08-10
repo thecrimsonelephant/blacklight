@@ -3,6 +3,7 @@ import os
 import pandas as pd
 import requests
 import base64
+import hashlib
 
 load_dotenv()
 apikey = os.getenv("APIKEY")
@@ -87,7 +88,7 @@ def parsing(encodingURLIDs):
     print(len(results))
 
     df = pd.DataFrame({
-        'name': names,
+        'names': names,
         'first_submission_date' : first_submission_date,
         'last_analysis_date' : last_analysis_date,
         'malicious_url' : maliciousURL,
@@ -98,5 +99,10 @@ def parsing(encodingURLIDs):
         'results': results
 
     })
-
+    df['composite_key'] = df['names'].astype(str) + '-' + df['malicious_url'].astype(str)
+    df['unique_id'] = [hashlib.sha256(x.encode()).hexdigest() for x in df['composite_key']]
+    print("Created Unique IDs")
+    df = df.drop(columns=['composite_key'])
+    df = df[sorted(df.columns)]
+    print(df)
     return df

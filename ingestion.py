@@ -1,14 +1,15 @@
 from feeds import loadHausJSON, parseHausData, getURLID, parsing
-import pandas as pd
 import os
+
 path = os.path.join(os.path.dirname(__file__), 'data', 'urlhaus_malicious-urls.json')
 
 def main():
     data = loadHausJSON(path)
-    all = parseHausData(data)
-    encoded = getURLID(all)
+    all_data = parseHausData(data)
+    encoded = getURLID(all_data)
     parsed = parsing(encoded)
-    print(parsed)
+    return parsed
 
 if __name__ == "__main__":
-    main()
+    df = main()
+    print(df.head())  # optional: just to confirm it runs standalone
