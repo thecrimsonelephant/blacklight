@@ -12,8 +12,8 @@ It pulls data from multiple open-source threat feeds, standardizes indicators li
 - Scalable architecture for adding new feeds
 
 ## 🍿 Feeds (Current and Planned)
-- [ ] URLhaus
-- [ ] VirusTotal API
+- [X] URLhaus
+- [X] VirusTotal API
 - [ ] Postgres local
 
 ## 🛠 Tech Stack

@@ -71,7 +71,7 @@ def parsing(encodingURLIDs):
         "accept": "application/json",
         "x-apikey": apikey
     }
-    
+
     print(encodingURLIDs)
 
     for encodingURLID in encodingURLIDs:
@@ -135,10 +135,7 @@ def main():
     path = os.path.join(os.path.dirname(__file__), '..', 'data', 'urlhaus_malicious-urls.json')
     data = loadHausJSON(path)
     all = parseHausData(data)
-    # print(all)
     encoded = getURLID(all)
-    # print(encoded)
-    # print(type(encoded))
     parsed = parsing(encoded)
     print(parsed)
 main()
