@@ -6,3 +6,5 @@ feeds/__pycache__
 .venv
 .env
 postgresload.py
+__pycache__
+.DS_Store
