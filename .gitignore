@@ -2,9 +2,8 @@
 data/*.json
 data/*.csv
 testing
-feeds/__pycache__
 .venv
 .env
 postgresload.py
-__pycache__
+__pycache__/
 .DS_Store
