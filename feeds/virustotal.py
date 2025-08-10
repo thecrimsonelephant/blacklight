@@ -1,37 +1,11 @@
 from dotenv import load_dotenv
 import os
-import json
 import pandas as pd
-import pprint as pp
 import requests
 import base64
 
 load_dotenv()
 apikey = os.getenv("APIKEY")
-
-def loadHausJSON(path):
-    with open(path, 'r') as f:
-        data = json.load(f)
-    # pp.pprint(data)
-    return data
-
-def parseHausData(data):
-    parsed = []
-    for key, entries in data.items():
-        for item in entries:
-            parsed.append({
-                "id": key,  # keep track of the original key
-                "url": item.get("url"),
-                "url_status": item.get("url_status"),
-                "date_added": item.get("dateadded"),
-                "last_online": item.get("last_online"),
-                "tags": item.get("tags", []),
-                "threat": item.get("threat"),
-                "reporter": item.get("reporter"),
-                "urlhaus_link": item.get("urlhaus_link")
-            })
-    return parsed
-# path = '/Users/winnie/Documents/Python Project/blacklight/data/urlhaus_malicious-urls.json'
 
 def getURLID(all):
     df = pd.DataFrame(all)
@@ -106,9 +80,6 @@ def parsing(encodingURLIDs):
     print(len(last_analysis_date))
     print(len(maliciousURL))
     print(len(threat_names))
-    # print(len(harmless))
-    # print(len(malicious))
-    # print(len(undetected))
     print(len(names))
     print(len(categories))
     print(len(engine_names))
@@ -129,13 +100,3 @@ def parsing(encodingURLIDs):
     })
 
     return df
-
-def main():
-
-    path = os.path.join(os.path.dirname(__file__), '..', 'data', 'urlhaus_malicious-urls.json')
-    data = loadHausJSON(path)
-    all = parseHausData(data)
-    encoded = getURLID(all)
-    parsed = parsing(encoded)
-    print(parsed)
-main()

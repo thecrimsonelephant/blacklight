@@ -1,13 +1,14 @@
-from feeds import loadHausJSON, parseHausData
+from feeds import loadHausJSON, parseHausData, getURLID, parsing
 import pandas as pd
+import os
+path = os.path.join(os.path.dirname(__file__), 'data', 'urlhaus_malicious-urls.json')
 
 def main():
-    data = loadHausJSON('data/urlhaus_malicious-urls.json')
-    parsedURLs = parseHausData(data)
-    print(f'Parsing {len(parsedURLs)} URLs')
-    # Check the first 3 entries
-    df = pd.DataFrame(parsedURLs)
-    print(df)
+    data = loadHausJSON(path)
+    all = parseHausData(data)
+    encoded = getURLID(all)
+    parsed = parsing(encoded)
+    print(parsed)
 
 if __name__ == "__main__":
     main()
