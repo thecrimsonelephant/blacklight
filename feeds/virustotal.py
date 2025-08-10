@@ -33,9 +33,9 @@ def parseHausData(data):
     return parsed
 # path = '/Users/winnie/Documents/Python Project/blacklight/data/urlhaus_malicious-urls.json'
 
-def getURLID(path):
-    all = parseHausData(loadHausJSON(path))
+def getURLID(all):
     df = pd.DataFrame(all)
+    print(df.head())
     urls = df['url'].head(3)
     encoded = []
     print(urls)
@@ -48,7 +48,7 @@ def getURLID(path):
     return encoded
 # getURLID(path)
 
-def parsing(mal_url_id):   
+def parsing(encodingURLIDs):   
     # attributes
     first_submission_date = []
     last_analysis_date = []
@@ -71,8 +71,8 @@ def parsing(mal_url_id):
         "accept": "application/json",
         "x-apikey": apikey
     }
-
-    encodingURLIDs = getURLID(mal_url_id) #mal_url_id = list
+    
+    print(encodingURLIDs)
 
     for encodingURLID in encodingURLIDs:
         # Get URL report (GET)
@@ -135,7 +135,10 @@ def main():
     path = os.path.join(os.path.dirname(__file__), '..', 'data', 'urlhaus_malicious-urls.json')
     data = loadHausJSON(path)
     all = parseHausData(data)
+    # print(all)
     encoded = getURLID(all)
+    # print(encoded)
+    # print(type(encoded))
     parsed = parsing(encoded)
     print(parsed)
 main()
