@@ -6,7 +6,7 @@ import pandas as pd
 import requests
 import base64
 import hashlib
-import datetime
+import datetime as dt
 
 load_dotenv()
 apikey = os.getenv("APIKEY") # storing apikey
@@ -50,7 +50,7 @@ def parsing(encodingURLIDs):
         "x-apikey": apikey
     }
 
-    print(encodingURLIDs) # triple checking urlID list. For sanity (#3)
+    # print(encodingURLIDs) # triple checking urlID list. For sanity (#3)
 
     # looping through list of encoded URLs
     for encodingURLID in encodingURLIDs:
@@ -82,8 +82,8 @@ def parsing(encodingURLIDs):
         except Exception as e:
             print(e)
     # massive sanity check #5 but this time it's valid because if any are incorrect lengths, they won't append... maybe try/except here.
-    print(len(first_submission_date))
-    print(len(last_analysis_date))
+    print(len(first_submission_date_unix))
+    print(len(last_analysis_date_unix))
     print(len(maliciousURL))
     print(len(threat_names))
     print(len(names))
@@ -95,21 +95,34 @@ def parsing(encodingURLIDs):
     # storing data in dataframe
     df = pd.DataFrame({
         'names': names,
-        'first_submission_date' : first_submission_date,
-        'last_analysis_date' : last_analysis_date,
+        'first_submission_date_unix' : first_submission_date_unix,
+        'last_analysis_date_unix' : last_analysis_date_unix,
         'malicious_url' : maliciousURL,
         'threat_names' : threat_names,
         'methods' : methods,
         'engine_names' : engine_names,
         'categories' : categories,
         'results': results
-
-    })
+        })
+    
     # adding sha256 uniqueID here for postgres storing
     df['composite_key'] = df['names'].astype(str) + '-' + df['malicious_url'].astype(str) # creating a column of the string version of the eventual sha256 encoded ID is faster and easier than using a function and looping through the dataframe, especially for large DFs!
     df['unique_id'] = [hashlib.sha256(x.encode()).hexdigest() for x in df['composite_key']]
     print("Created Unique IDs") # just for clarification
-    df = df.drop(columns=['composite_key']) # dropping the string version of uniqueIDs
+    
+    # editing the unixtimestamps in the date fields to actual dates, and then saving to dataframe
+    for unix_timestamp in df['first_submission_date_unix']:
+        print(unix_timestamp)
+        dates = dt.datetime.fromtimestamp(unix_timestamp)
+        first_submission_date.append(dates)
+    for unix_timestamp in df['last_analysis_date_unix']:
+        print(unix_timestamp)
+        dates = dt.datetime.fromtimestamp(unix_timestamp)
+        last_analysis_date.append(dates)
+    df['first_submission_date'] = first_submission_date
+    df['last_analysis_date'] = last_analysis_date
+    colstodrop = ['composite_key', 'first_submission_date_unix', 'last_analysis_date_unix'] # setting up columns to drop
+    df = df.drop(columns=colstodrop) # dropping columns to drop (see line 97)
     df = df[sorted(df.columns)] # sorting because my brain breaks if not
-    print(df) # sanity (promise it's the last one: #6)
+    # print(df) # sanity (promise it's the last one: #6)
     return df # celebrate 🎉

@@ -1,7 +1,7 @@
 # Ignore raw data files
 data/*.json
 data/*.csv
-testing
+testing/
 .venv
 .env
 postgresload.py
