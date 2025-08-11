@@ -14,7 +14,7 @@ It pulls data from multiple open-source threat feeds, standardizes indicators li
 ## 🍿 Feeds (Current and Planned)
 - [X] URLhaus
 - [X] VirusTotal API
-- [ ] Postgres local
+- [X] Postgres local
 
 ## 🛠 Tech Stack
 - Python 3.11+
@@ -35,16 +35,18 @@ blacklight/
 ```
 
 ## ❔ So what's the plan?
-1. Parse JSON dump from URLhaus for URLs 
-2. Connect to VirusTotal API to pull in additional information
-3. Save data in Postgres
-4. Visualiation 😎
+1. Parse JSON dump from URLhaus for URLs ✅
+2. Connect to VirusTotal API to pull in additional information ✅
+3. Save data in Postgres ✅
+4. Visualiation 😎 ✅
+
+## High Level Results
+
+![High Level URL Classifications](results/url_classification_counts.png)
+![URHaus x Virus Total Malicious and Malware Findings](results/malicious_and_malware_findings.png)
 
 ## 👓 Author
 Created By Winnie Mutunga
 
 This project is open for viewing but not licensed for reuse or redistribution.
-Test commit for display name
-# test commit
-# test commit
 
