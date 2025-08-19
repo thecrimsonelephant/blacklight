@@ -4,6 +4,9 @@ Blacklight is a modular threat intelligence aggregator and IOC normalization eng
 
 It pulls data from multiple open-source threat feeds, standardizes indicators like IPs, domains, and file hashes, and stores them in a unified format for analysis, enrichment, and automation.
 
+[![Python](https://img.shields.io/badge/Python-3.10+-blue)](https://www.python.org/)  
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 ## ✨ Features
 - Ingests threat feeds (JSON, CSV, TXT)
 - Normalizes indicators across formats
